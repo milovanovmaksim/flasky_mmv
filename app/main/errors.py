@@ -20,7 +20,7 @@ def internal_server_error(e):
         response.status_code = 500
         return response
 
-    return render_template('505.html'), 500
+    return render_template('500.html'), 500
 
 
 @main.app_errorhandler(403)
