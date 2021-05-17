@@ -46,7 +46,6 @@ class ProductionConfig(Config):
     def init_app(cls, app):
         Config.init_app(app)
 
-        # отправить администраторам письма с сообщениями об ошибках
         import logging
         from logging.handlers import SMTPHandler
         credentials = None
@@ -73,11 +72,9 @@ class HerokuConfig(ProductionConfig):
     def init_app(cls, app):
         ProductionConfig.init_app(app)
 
-        # обработка заголовков прокси-сервера
-        from werkzeug.contrib.fixers import ProxyFix
+        from werkzeug.middleware.proxy_fix import ProxyFix
         app.wsgi_app = ProxyFix(app.wsgi_app)
 
-        # журналирование в поток
         import logging
         from logging import StreamHandler
 
